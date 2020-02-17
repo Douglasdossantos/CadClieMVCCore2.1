@@ -1,0 +1,110 @@
+﻿@model CadastroDeClientes.Models.Cliente
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Vc deseja excluir o Cadastro de Cliente?</h3>
+<div>
+    <h4> Informaçoes do Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <div class="col-md-12 row">
+            <div class="col-md-12 row">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+            </div>
+            <div class="col-md-12 row">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Nome)
+                </dd>
+            </div>
+            <div class="col-md-2 row">
+                <dt>
+                    @Html.DisplayNameFor(model => model.DataNascimento)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DataNascimento)
+                </dd>
+            </div>
+            <div class="col-md-2 row">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Sexo)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Sexo)
+                </dd>
+            </div>
+            <div class="col-md-2 row">
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndCliente.Cep)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EndCliente.Cep)
+                </dd>
+            </div>
+            <div class="col-md-4 row">
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndCliente.End)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EndCliente.End)
+                </dd>
+            </div>
+            <div class="col-md-2 row">
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndCliente.Numero)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EndCliente.Numero)
+                </dd>
+            </div>
+            <div class="col-md-4 row">
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndCliente.Complemento)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EndCliente.Complemento)
+                </dd>
+            </div>
+            <div class="col-md-3 row">
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndCliente.Bairro)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EndCliente.Bairro)
+                </dd>
+            </div>
+            <div class="col-md-4 row">
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndCliente.Cidade)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EndCliente.Cidade)
+                </dd>
+            </div>
+            <div class="col-md-1 row">
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndCliente.Estado)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EndCliente.Estado)
+                </dd>
+            </div>
+        </div>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Excluir" class="btn btn-danger" /> 
+        <button class="btn btn-success"><a asp-action="Index">Cancelar</a> </button>
+    </form>
+</div>

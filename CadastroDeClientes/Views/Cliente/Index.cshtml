@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CadastroDeClientes.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p class="row">
+    <button  type="button" class="btn btn-info"><a asp-action="Cadastro">Novo Cliente</a></button>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataNascimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sexo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndCliente.Cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndCliente.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataNascimento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sexo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndCliente.Cidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndCliente.Estado)
+            </td>
+            <td>
+                <button type="button" class="btn btn-success">@Html.ActionLink("Visualizar", "Visualizar", new { id = item.Id }) </button>
+                <button type="button" class="btn btn-warning">@Html.ActionLink("Editar", "Editar", new { id = item.Id }) </button>
+                <button type="button" class="btn btn-danger">@Html.ActionLink("Deletar", "Delete", new { id = item.Id })</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,161 @@
+﻿@model CadastroDeClientes.Models.Cliente
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h2>Editar Cliente</h2>
+
+<h4>Cliente</h4>
+<hr />
+<div class="row">
+    <form asp-action="Editar">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-12">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="DataNascimento" class="control-label"></label>
+                <input asp-for="DataNascimento" class="form-control" placeholder="10/01/1990" />
+                <span asp-validation-for="DataNascimento" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="Sexo" class="control-label"></label>
+                <input asp-for="Sexo" class="form-control" />
+                <span asp-validation-for="Sexo" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+
+                <label asp-for="EndCliente.Cep" class="control-label"></label>
+                <input asp-for="EndCliente.Cep" id="Cep" class="form-control" onblur="pesquisacep(this.value);" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="EndCliente.End" class="control-label"></label>
+                <input asp-for="EndCliente.End" id="End" size="60" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="EndCliente.Numero" class="control-label"></label>
+                <input asp-for="EndCliente.Numero" class="form-control" />
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="EndCliente.Complemento" class="control-label"></label>
+                <input asp-for="EndCliente.Complemento" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="EndCliente.Bairro" class="control-label"></label>
+                <input asp-for="EndCliente.Bairro" id="Bairro" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="EndCliente.Cidade" class="control-label"></label>
+                <input asp-for="EndCliente.Cidade" id="Cidade" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                <label asp-for="EndCliente.Estado" class="control-label"></label>
+                <input asp-for="EndCliente.Estado" id="Estado" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Salvar" class="btn btn-success" />
+            <button type="button" class="btn btn-danger"><a asp-action="Index">Cancelar</a></button>
+        </div>
+    </form>
+</div>
+
+<div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        // esse javascript foi pego do proprio exemplo que cia cep disponibiliza
+        function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep.
+            document.getElementById('End').value = ("");
+            document.getElementById('Bairro').value = ("");
+            document.getElementById('Cidade').value = ("");
+            document.getElementById('Estado').value = ("");
+        }
+
+        function meu_callback(conteudo) {
+            if (!("erro" in conteudo)) {
+                //Atualiza os campos com os valores.
+                document.getElementById('End').value = (conteudo.logradouro);
+                document.getElementById('Bairro').value = (conteudo.bairro);
+                document.getElementById('Cidade').value = (conteudo.localidade);
+                document.getElementById('Estado').value = (conteudo.uf);
+            } //end if.
+            else {
+                //CEP não Encontrado.
+                limpa_formulário_cep();
+                alert("CEP não encontrado.");
+            }
+        }
+
+        function pesquisacep(valor) {
+
+            var cep = valor.replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if (validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    document.getElementById('End').value = "...";
+                    document.getElementById('Bairro').value = "...";
+                    document.getElementById('Cidade').value = "...";
+                    document.getElementById('Estado').value = "...";
+
+                    //Cria um elemento javascript.
+                    var script = document.createElement('script');
+
+                    //Sincroniza com o callback.
+                    script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                    //Insere script no documento e carrega o conteúdo.
+                    document.body.appendChild(script);
+
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
+        };
+    </script>
+}
